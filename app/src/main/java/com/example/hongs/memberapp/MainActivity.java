@@ -11,11 +11,13 @@ import android.widget.Toast;
 public class MainActivity extends Activity implements View.OnClickListener{
     EditText et_id,et_pw;
     Button bt_signin, bt_signup;
+    MemberService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        service = new MemberServiceImpl(this.getApplicationContext());
         et_id = (EditText) findViewById(R.id.et_id);
         et_pw = (EditText) findViewById(R.id.et_pw);
         bt_signin = (Button) findViewById(R.id.bt_signin);

@@ -1,28 +1,21 @@
 package com.example.hongs.memberapp;
 
+import android.content.Context;
+
 import java.util.List;
 
 /**
  * Created by hongs on 2016-07-27.
  */
 public class MemberServiceImpl implements MemberService {
-    private MemberDAO dao = MemberDAO.getInstance();
-    private MemberBean session;
-    private static MemberServiceImpl instanceImpl = new MemberServiceImpl();
-    private MemberServiceImpl() {
-        session = new MemberBean();
+
+    MemberDAO dao;
+    MemberBean session;
+
+    public MemberServiceImpl(Context context) {
+        dao = new MemberDAO(context);
     }
-    public MemberBean getSession() {
-        return session;
-    }
-    public void logoutSession(MemberBean member) {
-        if (member.getId().equals(session.getId()) && member.getPw().equals(session.getPw())) {
-            session = null;
-        }
-    }
-    public static MemberServiceImpl getInstanceImpl() {
-        return instanceImpl;
-    }
+
     @Override
     public String regist(MemberBean mem) {
         String msg = "";

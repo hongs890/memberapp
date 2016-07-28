@@ -12,8 +12,6 @@ public interface MemberService {
     public MemberBean detail(String mem);
     public int count();
     public List<?> list();
-    public MemberBean getSession();
-    public void logoutSession(MemberBean member);
     public List<?> findByName(String findName);
     public List<?> findBy(String keyword);
     public String myAccount();
