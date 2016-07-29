@@ -1,7 +1,9 @@
 package com.example.hongs.memberapp;
 
 import android.content.Context;
+import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,7 +11,7 @@ import java.util.List;
  */
 public class MemberServiceImpl implements MemberService {
 
-    MemberDAO dao;
+    private MemberDAO dao;
     MemberBean session;
 
     public MemberServiceImpl(Context context) {
@@ -18,12 +20,21 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public String regist(MemberBean mem) {
-        String msg = "";
-        if (dao.insert(mem)==1) {
-            msg = dao.findById(mem.getId()).getName();
+       String msg = "";
+        int result = dao.insert(mem);
+        if (result == 0) {
+            Log.d("DAO를 다녀옴",String.valueOf(result));
+        }else{
+            Log.d("DAO를 다녀오지 않음",String.valueOf(result));
         }
         return msg;
     }
+
+    @Override
+    public boolean login(MemberBean bean) {
+        return dao.login(bean);
+    }
+
     @Override
     public void update(MemberBean mem) {
         mem.setId(session.getId());
@@ -43,8 +54,14 @@ public class MemberServiceImpl implements MemberService {
     public MemberBean detail(String mem) {
         return dao.findById(mem);
     }
+
     @Override
-    public List<?> list() {
+    public MemberBean findById(String id) {
+        return dao.findById(id);
+    }
+
+    @Override
+    public ArrayList<MemberBean> list() {
         return dao.list();
     }
     @Override

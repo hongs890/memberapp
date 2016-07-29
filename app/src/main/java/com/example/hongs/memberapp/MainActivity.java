@@ -17,11 +17,11 @@ public class MainActivity extends Activity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        service = new MemberServiceImpl(this.getApplicationContext());
         et_id = (EditText) findViewById(R.id.et_id);
         et_pw = (EditText) findViewById(R.id.et_pw);
         bt_signin = (Button) findViewById(R.id.bt_signin);
         bt_signup = (Button) findViewById(R.id.bt_signup);
+        service = new MemberServiceImpl(this.getApplicationContext());
         bt_signin.setOnClickListener(this);
         bt_signup.setOnClickListener(this);
     }
@@ -30,11 +30,18 @@ public class MainActivity extends Activity implements View.OnClickListener{
     public void onClick(View v) {
     switch (v.getId()){
         case R.id.bt_signup:
-            startActivity(new Intent(this,JoinActivity.class));
+           startActivity(new Intent(this, JoinActivity.class));
             break;
         case R.id.bt_signin:
-            Toast.makeText(MainActivity.this,"ID"+et_id.getText().toString()
-                    +" PW"+et_pw.getText().toString(),Toast.LENGTH_LONG).show();
+            MemberBean bean = new MemberBean();
+            bean.setId(et_id.getText().toString());
+            bean.setPw(et_pw.getText().toString());
+            if (service.login(bean)){
+                startActivity(new Intent(this,HomeActivity.class));
+            }else{
+                Toast.makeText(MainActivity.this,"Please check your ID, Password", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(this,MainActivity.class));
+            }
             break;
 
     }

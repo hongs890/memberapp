@@ -11,7 +11,24 @@ public class MemberBean {
     private String ssn;
     private String email;
     private String phone;
+    private String profile;
+    private int photo;
 
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
+    public int getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(int photo) {
+        this.photo = photo;
+    }
 
     public String getId() {
         return id;
